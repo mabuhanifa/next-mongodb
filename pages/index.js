@@ -1,7 +1,9 @@
 export default function Home() {
   return (
     <div>
-      <div></div>
+      <div>
+        next-mongodb
+      </div>
     </div>
   );
 }
