@@ -1,0 +1,27 @@
+[
+  {
+    "productName": "iPhone 15 Pro",
+    "customerEmail": "purchasing@retailcorp.com",
+    "quantity": 10
+  },
+  {
+    "productName": "Dell XPS 15",
+    "customerEmail": "orders@techsolutions.com",
+    "quantity": 5
+  },
+  {
+    "productName": "Sony WH-1000XM5",
+    "customerEmail": "mike.ross@personal.com",
+    "quantity": 1
+  },
+  {
+    "productName": "MacBook Air M3",
+    "customerEmail": "purchasing@retailcorp.com",
+    "quantity": 8
+  },
+  {
+    "productName": "Galaxy S24 Ultra",
+    "customerEmail": "sarah.c@personal.net",
+    "quantity": 2
+  }
+]

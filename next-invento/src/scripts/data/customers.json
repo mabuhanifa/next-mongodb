@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Retail Corp",
+    "email": "purchasing@retailcorp.com",
+    "phone": "111-222-3333"
+  },
+  {
+    "name": "Tech Solutions Ltd.",
+    "email": "orders@techsolutions.com",
+    "phone": "444-555-6666"
+  },
+  {
+    "name": "Mike Ross",
+    "email": "mike.ross@personal.com",
+    "phone": "777-888-9999"
+  },
+  {
+    "name": "Sarah Connor",
+    "email": "sarah.c@personal.net",
+    "phone": "123-456-7890"
+  }
+]

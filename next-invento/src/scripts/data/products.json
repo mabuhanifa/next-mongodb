@@ -1,0 +1,57 @@
+[
+  {
+    "name": "iPhone 15 Pro",
+    "description": "The latest and greatest from Apple.",
+    "price": 999,
+    "cost": 650,
+    "stock": 50,
+    "categoryName": "Smartphones",
+    "brandName": "Apple",
+    "attributes": { "color": "Titanium", "size": "256GB" },
+    "tags": ["new", "popular"]
+  },
+  {
+    "name": "Galaxy S24 Ultra",
+    "description": "Samsung's flagship with AI features.",
+    "price": 1199,
+    "cost": 750,
+    "stock": 40,
+    "categoryName": "Smartphones",
+    "brandName": "Samsung",
+    "attributes": { "color": "Black", "size": "512GB" },
+    "tags": ["popular", "AI"]
+  },
+  {
+    "name": "MacBook Air M3",
+    "description": "Thin, light, and powerful.",
+    "price": 1099,
+    "cost": 700,
+    "stock": 30,
+    "categoryName": "Laptops",
+    "brandName": "Apple",
+    "attributes": { "color": "Midnight", "size": "13-inch" },
+    "tags": ["new", "laptop"]
+  },
+  {
+    "name": "Dell XPS 15",
+    "description": "A premium Windows laptop for creators.",
+    "price": 1499,
+    "cost": 950,
+    "stock": 25,
+    "categoryName": "Laptops",
+    "brandName": "Dell",
+    "attributes": { "color": "Silver", "size": "15-inch" },
+    "tags": ["creator", "laptop"]
+  },
+  {
+    "name": "Sony WH-1000XM5",
+    "description": "Industry-leading noise-canceling headphones.",
+    "price": 399,
+    "cost": 250,
+    "stock": 100,
+    "categoryName": "Headphones",
+    "brandName": "Sony",
+    "attributes": { "color": "Black", "type": "Over-ear" },
+    "tags": ["audio", "sale"]
+  }
+]

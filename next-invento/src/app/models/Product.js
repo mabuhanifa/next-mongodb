@@ -1,5 +1,16 @@
 import mongoose from "mongoose";
 
+// Define a separate schema for the nested attributes.
+// Using { _id: false } prevents Mongoose from creating an _id for the sub-document.
+const AttributeSchema = new mongoose.Schema(
+  {
+    size: String,
+    color: String,
+    type: String,
+  },
+  { _id: false }
+);
+
 const ProductSchema = new mongoose.Schema(
   {
     name: {
@@ -34,11 +45,8 @@ const ProductSchema = new mongoose.Schema(
       required: true,
       default: 0,
     },
-    attributes: {
-      size: String,
-      color: String,
-      type: String,
-    },
+    // Use the AttributeSchema for the attributes field.
+    attributes: AttributeSchema,
     tags: [String],
   },
   { timestamps: true }
