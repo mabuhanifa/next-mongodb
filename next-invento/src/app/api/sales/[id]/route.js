@@ -1,5 +1,26 @@
+import dbConnect from "@/app/lib/dbConnect";
+import Sale from "@/app/models/Sale";
 import { NextResponse } from "next/server";
 
 export async function GET(request, { params }) {
-  return NextResponse.json({ message: `Get sale ${params.id}` });
+  await dbConnect();
+  try {
+    const sale = await Sale.findById(params.id)
+      .populate("product")
+      .populate("customer");
+    if (!sale) {
+      return NextResponse.json(
+        { success: false, error: "Sale not found" },
+        { status: 404 }
+      );
+    }
+    return NextResponse.json({ success: true, data: sale });
+  } catch (error) {
+    return NextResponse.json(
+      { success: false, error: error.message },
+      {
+        status: 500,
+      }
+    );
+  }
 }

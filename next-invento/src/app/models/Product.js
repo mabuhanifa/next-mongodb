@@ -15,6 +15,10 @@ const ProductSchema = new mongoose.Schema(
       type: Number,
       required: [true, "Please provide a price."],
     },
+    cost: {
+      type: Number,
+      required: [true, "Please provide a cost."],
+    },
     category: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Category",
@@ -33,6 +37,7 @@ const ProductSchema = new mongoose.Schema(
     attributes: {
       size: String,
       color: String,
+      type: String,
     },
     tags: [String],
   },

@@ -13,3 +13,17 @@ export const comparePassword = async (password, hashedPassword) => {
 export const createJWT = (payload) => {
   return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1d" });
 };
+
+export const getDataFromToken = (request) => {
+  try {
+    const token = request.cookies.get("token")?.value || "";
+    if (!token) {
+      return null;
+    }
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+    return decodedToken.id;
+  } catch (error) {
+    console.error("JWT verification error:", error.message);
+    return null;
+  }
+};
