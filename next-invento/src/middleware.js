@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 
 const allowedOrigins = process.env.CORS_ORIGIN
   ? process.env.CORS_ORIGIN.split(",").map((origin) => origin.trim())
-  : ["http://localhost:3001"];
+  : ["http://localhost:3000"];
 
 export function middleware(request) {
   const origin = request.headers.get("origin");
