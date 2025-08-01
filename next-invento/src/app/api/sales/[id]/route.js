@@ -1,13 +1,14 @@
 import dbConnect from "@/app/lib/dbConnect";
-import "@/app/models/Customer"; // Import for side-effects
-import "@/app/models/Product"; // Import for side-effects
+import "@/app/models/Customer.js"; // Import for side-effects
+import "@/app/models/Product.js"; // Import for side-effects
 import Sale from "@/app/models/Sale";
 import { NextResponse } from "next/server";
 
 export async function GET(request, { params }) {
+  const { id } = await params;
   await dbConnect();
   try {
-    const sale = await Sale.findById(params.id)
+    const sale = await Sale.findById(id)
       .populate("product")
       .populate("customer");
     if (!sale) {

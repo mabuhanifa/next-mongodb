@@ -1,13 +1,14 @@
 import { getDataFromToken } from "@/app/lib/auth-helpers";
 import dbConnect from "@/app/lib/dbConnect";
 import Brand from "@/app/models/Brand";
-import User from "@/app/models/User";
+import User from "@/app/models/User.js";
 import { NextResponse } from "next/server";
 
 export async function GET(request, { params }) {
+  const { id } = await params;
   await dbConnect();
   try {
-    const brand = await Brand.findById(params.id);
+    const brand = await Brand.findById(id);
     if (!brand) {
       return NextResponse.json(
         { success: false, error: "Brand not found" },
@@ -24,6 +25,7 @@ export async function GET(request, { params }) {
 }
 
 export async function PUT(request, { params }) {
+  const { id } = await params;
   await dbConnect();
   try {
     const userId = getDataFromToken(request);
@@ -36,7 +38,7 @@ export async function PUT(request, { params }) {
     }
 
     const body = await request.json();
-    const brand = await Brand.findByIdAndUpdate(params.id, body, {
+    const brand = await Brand.findByIdAndUpdate(id, body, {
       new: true,
       runValidators: true,
     });
@@ -56,6 +58,7 @@ export async function PUT(request, { params }) {
 }
 
 export async function DELETE(request, { params }) {
+  const { id } = await params;
   await dbConnect();
   try {
     const userId = getDataFromToken(request);
@@ -67,7 +70,7 @@ export async function DELETE(request, { params }) {
       );
     }
 
-    const deletedBrand = await Brand.deleteOne({ _id: params.id });
+    const deletedBrand = await Brand.deleteOne({ _id: id });
     if (deletedBrand.deletedCount === 0) {
       return NextResponse.json(
         { success: false, error: "Brand not found" },

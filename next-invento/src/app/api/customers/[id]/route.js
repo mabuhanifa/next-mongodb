@@ -1,13 +1,14 @@
 import { getDataFromToken } from "@/app/lib/auth-helpers";
 import dbConnect from "@/app/lib/dbConnect";
-import Customer from "@/app/models/Customer";
-import User from "@/app/models/User";
+import Customer from "@/app/models/Customer.js";
+import User from "@/app/models/User.js";
 import { NextResponse } from "next/server";
 
 export async function GET(request, { params }) {
+  const { id } = await params;
   await dbConnect();
   try {
-    const customer = await Customer.findById(params.id);
+    const customer = await Customer.findById(id);
     if (!customer) {
       return NextResponse.json(
         { success: false, error: "Customer not found" },
@@ -24,6 +25,7 @@ export async function GET(request, { params }) {
 }
 
 export async function PUT(request, { params }) {
+  const { id } = await params;
   await dbConnect();
   try {
     const userId = getDataFromToken(request);
@@ -36,7 +38,7 @@ export async function PUT(request, { params }) {
     }
 
     const body = await request.json();
-    const customer = await Customer.findByIdAndUpdate(params.id, body, {
+    const customer = await Customer.findByIdAndUpdate(id, body, {
       new: true,
       runValidators: true,
     });
@@ -56,6 +58,7 @@ export async function PUT(request, { params }) {
 }
 
 export async function DELETE(request, { params }) {
+  const { id } = await params;
   await dbConnect();
   try {
     const userId = getDataFromToken(request);
@@ -67,7 +70,7 @@ export async function DELETE(request, { params }) {
       );
     }
 
-    const deletedCustomer = await Customer.deleteOne({ _id: params.id });
+    const deletedCustomer = await Customer.deleteOne({ _id: id });
     if (deletedCustomer.deletedCount === 0) {
       return NextResponse.json(
         { success: false, error: "Customer not found" },

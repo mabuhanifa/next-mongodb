@@ -1,29 +1,56 @@
 import { NextResponse } from "next/server";
 
-export function middleware(request) {
-  const path = request.nextUrl.pathname;
+const allowedOrigins = process.env.CORS_ORIGIN
+  ? process.env.CORS_ORIGIN.split(",").map((origin) => origin.trim())
+  : ["http://localhost:3001"];
 
-  // Public paths that don't require authentication
+export function middleware(request) {
+  const origin = request.headers.get("origin");
+  const isAllowedOrigin = origin && allowedOrigins.includes(origin);
+
+  // Handle preflight requests
+  if (request.method === "OPTIONS") {
+    const headers = new Headers(request.headers);
+    headers.set(
+      "Access-Control-Allow-Methods",
+      "GET, POST, PUT, DELETE, OPTIONS"
+    );
+    headers.set("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    headers.set("Access-Control-Allow-Credentials", "true");
+    if (isAllowedOrigin) {
+      headers.set("Access-Control-Allow-Origin", origin);
+    }
+    return new NextResponse(null, { status: 204, headers });
+  }
+
+  // Handle actual requests
+  const path = request.nextUrl.pathname;
   const isPublicPath =
     path.startsWith("/api/auth/login") || path.startsWith("/api/auth/register");
 
-  const token = request.cookies.get("token")?.value || "";
+  let response;
 
   if (isPublicPath) {
-    return NextResponse.next();
+    response = NextResponse.next();
+  } else {
+    const token = request.cookies.get("token")?.value || "";
+    if (!token) {
+      response = new NextResponse(
+        JSON.stringify({ error: "Authentication required" }),
+        { status: 401, headers: { "Content-Type": "application/json" } }
+      );
+    } else {
+      response = NextResponse.next();
+    }
   }
 
-  if (!token) {
-    return new NextResponse(
-      JSON.stringify({ error: "Authentication required" }),
-      { status: 401 }
-    );
+  // Add CORS headers to the response
+  if (isAllowedOrigin) {
+    response.headers.set("Access-Control-Allow-Origin", origin);
   }
+  response.headers.set("Access-Control-Allow-Credentials", "true");
 
-  // In a real app, you'd verify the token here.
-  // For now, we just check for its presence.
-
-  return NextResponse.next();
+  return response;
 }
 
 // See "Matching Paths" below to learn more

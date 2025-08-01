@@ -1,13 +1,14 @@
 import { getDataFromToken } from "@/app/lib/auth-helpers";
 import dbConnect from "@/app/lib/dbConnect";
 import Category from "@/app/models/Category";
-import User from "@/app/models/User";
+import User from "@/app/models/User.js";
 import { NextResponse } from "next/server";
 
 export async function GET(request, { params }) {
+  const { id } = await params;
   await dbConnect();
   try {
-    const category = await Category.findById(params.id);
+    const category = await Category.findById(id);
     if (!category) {
       return NextResponse.json(
         { success: false, error: "Category not found" },
@@ -24,6 +25,7 @@ export async function GET(request, { params }) {
 }
 
 export async function PUT(request, { params }) {
+  const { id } = await params;
   await dbConnect();
   try {
     const userId = getDataFromToken(request);
@@ -36,7 +38,7 @@ export async function PUT(request, { params }) {
     }
 
     const body = await request.json();
-    const category = await Category.findByIdAndUpdate(params.id, body, {
+    const category = await Category.findByIdAndUpdate(id, body, {
       new: true,
       runValidators: true,
     });
@@ -56,6 +58,7 @@ export async function PUT(request, { params }) {
 }
 
 export async function DELETE(request, { params }) {
+  const { id } = await params;
   await dbConnect();
   try {
     const userId = getDataFromToken(request);
@@ -67,7 +70,7 @@ export async function DELETE(request, { params }) {
       );
     }
 
-    const deletedCategory = await Category.deleteOne({ _id: params.id });
+    const deletedCategory = await Category.deleteOne({ _id: id });
     if (deletedCategory.deletedCount === 0) {
       return NextResponse.json(
         { success: false, error: "Category not found" },

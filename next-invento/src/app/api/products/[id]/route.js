@@ -7,9 +7,10 @@ import User from "@/app/models/User.js";
 import { NextResponse } from "next/server";
 
 export async function GET(request, { params }) {
+  const { id } = await params;
   await dbConnect();
   try {
-    const product = await Product.findById(params.id)
+    const product = await Product.findById(id)
       .populate("brand")
       .populate("category");
     if (!product) {
@@ -28,6 +29,7 @@ export async function GET(request, { params }) {
 }
 
 export async function PUT(request, { params }) {
+  const { id } = await params;
   await dbConnect();
   try {
     const userId = getDataFromToken(request);
@@ -40,7 +42,7 @@ export async function PUT(request, { params }) {
     }
 
     const body = await request.json();
-    const product = await Product.findByIdAndUpdate(params.id, body, {
+    const product = await Product.findByIdAndUpdate(id, body, {
       new: true,
       runValidators: true,
     });
@@ -60,6 +62,7 @@ export async function PUT(request, { params }) {
 }
 
 export async function DELETE(request, { params }) {
+  const { id } = await params;
   await dbConnect();
   try {
     const userId = getDataFromToken(request);
@@ -71,7 +74,7 @@ export async function DELETE(request, { params }) {
       );
     }
 
-    const deletedProduct = await Product.deleteOne({ _id: params.id });
+    const deletedProduct = await Product.deleteOne({ _id: id });
     if (deletedProduct.deletedCount === 0) {
       return NextResponse.json(
         { success: false, error: "Product not found" },
