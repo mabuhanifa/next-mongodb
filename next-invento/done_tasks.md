@@ -91,4 +91,6 @@ All endpoints are protected and require an authenticated user, except for `/logi
 - The project requires a `.env.local` file in the root with the following variables:
   - `MONGODB_URI`: Your MongoDB connection string.
   - `JWT_SECRET`: A secret key for signing JSON Web Tokens.
+  - `CORS_ORIGIN`: A comma-separated list of allowed frontend origins (e.g., `http://localhost:3001`).
 - Path aliases (`@/*`) are configured in `jsconfig.json` to point to the `src/` directory.
+- Global CORS handling is configured in `src/middleware.js`.
