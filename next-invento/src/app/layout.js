@@ -1,3 +1,5 @@
+import Navbar from "@/components/Navbar.js";
+import { AuthProvider } from "@/context/AuthContext.js";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -20,7 +22,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        {children}
+        <AuthProvider>
+          <Navbar />
+          <main className="pt-16">{children}</main>
+        </AuthProvider>
       </body>
     </html>
   );
