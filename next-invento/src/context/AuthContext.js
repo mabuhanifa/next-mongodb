@@ -8,6 +8,7 @@ import {
 } from "@/services/authApi.js";
 import { useRouter } from "next/navigation";
 import { createContext, useContext, useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 const AuthContext = createContext(null);
 
@@ -40,18 +41,24 @@ export const AuthProvider = ({ children }) => {
       const profileRes = await getUserProfile();
       setUser(profileRes.data.data);
       setIsAuthenticated(true);
+      toast.success("Logged in successfully!");
       router.push("/profile");
     }
   };
 
   const register = async (userData) => {
     await registerUser(userData);
+    toast.success("Registration successful! Please log in.");
     router.push("/login");
   };
 
   const logout = async () => {
     try {
       await apiLogout();
+      toast.success("Logged out successfully.");
+    } catch (error) {
+      console.error("Logout failed", error);
+      toast.error("Logout failed.");
     } finally {
       setUser(null);
       setIsAuthenticated(false);

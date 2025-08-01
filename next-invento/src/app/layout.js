@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar.js";
 import { AuthProvider } from "@/context/AuthContext.js";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Toaster } from "react-hot-toast";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -23,6 +24,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <AuthProvider>
+          <Toaster position="top-center" />
           <Navbar />
           <main className="pt-16">{children}</main>
         </AuthProvider>
