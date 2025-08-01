@@ -1,7 +1,9 @@
 import { getDataFromToken } from "@/app/lib/auth-helpers";
 import dbConnect from "@/app/lib/dbConnect";
-import Product from "@/app/models/Product";
-import User from "@/app/models/User";
+import "@/app/models/Brand.js"; // Import for side-effects to register schema
+import "@/app/models/Category.js"; // Import for side-effects to register schema
+import Product from "@/app/models/Product.js";
+import User from "@/app/models/User.js";
 import { NextResponse } from "next/server";
 
 export async function GET(request) {

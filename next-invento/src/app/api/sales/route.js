@@ -1,5 +1,6 @@
 import { getDataFromToken } from "@/app/lib/auth-helpers";
 import dbConnect from "@/app/lib/dbConnect";
+import "@/app/models/Customer"; // Import for side-effects
 import Product from "@/app/models/Product";
 import Sale from "@/app/models/Sale";
 import mongoose from "mongoose";
